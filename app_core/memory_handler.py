@@ -1,8 +1,12 @@
+# ═══ IMPORTS ═══
 import os
 from dotenv import load_dotenv
 from mem0 import MemoryClient, Memory
 
+# ═══ MEMORY HANDLER CLASS — Wraps Mem0 for storing & retrieving user memories ═══
 class MemoryHandler:
+
+    # ── CONSTRUCTOR: Decides between Cloud (Mem0 Platform) or Local (SQLite) storage ──
     def __init__(self):
         # Load environment variables
         load_dotenv()
@@ -22,6 +26,7 @@ class MemoryHandler:
             self.client = Memory()
             self.use_platform = False
 
+    # ── ADD MEMORY: Sends text to Mem0 which auto-extracts facts about the user ──
     def add_memory(self, text: str, user_id: str = "default_user", metadata: dict = None) -> bool:
         """
         Extract and store persistent memories from the interaction text.
@@ -37,6 +42,7 @@ class MemoryHandler:
             print(f"Error adding memory: {e}")
             return False
 
+    # ── GET MEMORIES: Semantic search — finds relevant past memories for a query ──
     def get_memories(self, query: str, user_id: str = "default_user") -> list[str]:
         """
         Retrieve relevant memories matching the query context.
@@ -78,6 +84,7 @@ class MemoryHandler:
             print(f"Error retrieving memories: {e}")
             return []
 
+    # ── GET ALL MEMORIES: Returns every stored fact for a user ──
     def get_all_memories(self, user_id: str = "default_user") -> list[dict]:
         """
         Retrieves all currently stored facts about the user.
@@ -117,6 +124,7 @@ class MemoryHandler:
             print(f"Error listing all memories: {e}")
             return []
 
+    # ── DELETE MEMORY: Removes one specific memory by its ID ──
     def delete_memory(self, memory_id: str) -> bool:
         """
         Deletes a specific memory by its ID.
@@ -128,6 +136,7 @@ class MemoryHandler:
             print(f"Error deleting memory {memory_id}: {e}")
             return False
 
+    # ── CLEAR ALL: Wipes every memory for a given user ──
     def clear_all(self, user_id: str = "default_user") -> bool:
         """
         Deletes all memories for a specific user.

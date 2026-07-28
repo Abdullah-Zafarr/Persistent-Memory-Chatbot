@@ -1,3 +1,4 @@
+# ═══ IMPORTS ═══
 import os
 import sys
 import time
@@ -14,6 +15,7 @@ from app_core.memory_handler import MemoryHandler
 from app_core.llm_connector import LLMConnector
 from ui import GLOBAL_CSS, render_icon_bar, render_sidebar, render_welcome_screen, render_messages, render_telemetry, stream_and_save_response
 
+# ═══ APP CONFIG: Page title, layout, and environment setup ═══
 load_dotenv(override=True)
 st.set_page_config(page_title="Personal GPT", layout="wide", initial_sidebar_state="expanded")
 
@@ -34,6 +36,7 @@ for key, val in defaults.items():
         st.session_state[key] = val
 
 # ── 2. Core Business Logic Helpers ─────────────────────────────────────────────
+# ── GET ACTIVE HISTORY: Fetches chat messages of the current session ──
 def get_active_history():
     if st.session_state.active_session_id is None:
         return []
@@ -42,6 +45,7 @@ def get_active_history():
             return s["history"]
     return []
 
+# ── SAVE MESSAGE: Appends a message to the session; creates a new session if none exists ──
 def save_active_message(role, content):
     if st.session_state.active_session_id is None:
         sid = str(int(time.time()))
@@ -54,6 +58,7 @@ def save_active_message(role, content):
                 s["history"].append({"role": role, "content": content})
                 break
 
+# ── NAMESPACE UID: Builds a unique user+workspace ID to isolate memories per workspace ──
 def get_namespace_uid():
     ws = st.session_state.workspace.lower().replace(" ", "_").replace(".", "")
     return f"{st.session_state.user_id}_{ws}"
@@ -83,6 +88,7 @@ if st.session_state.get("pending_query"):
         get_namespace_uid,
     )
 
+# ═══ CHAT INPUT: Captures user message, fetches relevant memories, triggers response ═══
 if query := st.chat_input("Send a message..."):
     save_active_message("user", query)
     ns_uid = get_namespace_uid()
