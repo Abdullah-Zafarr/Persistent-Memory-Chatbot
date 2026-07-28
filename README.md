@@ -6,7 +6,7 @@ A personalized, context-aware chatbot interface that remembers facts, preference
 
 ## ✨ Interface Overview
 
-![Interface Layout](src/ui/screenshots/interface.png)
+![Interface Layout](ui/screenshots/interface.png)
 
 ---
 
@@ -25,27 +25,27 @@ A personalized, context-aware chatbot interface that remembers facts, preference
 
 ```
 mem0-memory-agent/
-├── src/
-│   ├── app_core/             # Core Backend Logic
-│   │   ├── app.py            # Streamlit Application Flow & Entry Point
-│   │   ├── memory_handler.py # Mem0 Vector Memory Storage & Retrieval
-│   │   └── llm_connector.py  # Multi-provider LLM API streaming (Groq/Gemini/OpenAI)
-│   ├── assets/               # SVG Graphic Assets
-│   │   ├── human.svg         # User avatar graphic
-│   │   ├── robot.svg         # Assistant avatar graphic
-│   │   └── logo.svg          # Orbital LLM welcome logo
-│   └── ui/                   # Modular Frontend UI Components
-│       ├── screenshots/      # UI screenshots directory
-│       │   └── interface.png # Web application layout screenshot
-│       ├── styles.py         # Global CSS themes & texture rules
-│       ├── navigation.py     # Fixed icon sidebar JS component
-│       ├── sidebar.py        # Workspace, history, memories & config tabs
-│       ├── chat.py           # Chat viewports & welcome screen
-│       └── stream_handler.py # Live streaming response UI handler
+├── app_core/                 # Core Backend Logic
+│   ├── app.py                # Streamlit Application Flow & Entry Point
+│   ├── memory_handler.py     # Mem0 Vector Memory Storage & Retrieval
+│   └── llm_connector.py      # Multi-provider LLM API streaming (Groq/Gemini/OpenAI)
+├── assets/                   # SVG Graphic Assets
+│   ├── human.svg             # User avatar graphic
+│   ├── robot.svg             # Assistant avatar graphic
+│   └── logo.svg              # Orbital LLM welcome logo
+├── ui/                       # Modular Frontend UI Components
+│   ├── screenshots/          # UI screenshots directory
+│   │   └── interface.png     # Web application layout screenshot
+│   ├── styles.py             # Global CSS themes & texture rules
+│   ├── navigation.py         # Fixed icon sidebar JS component
+│   ├── sidebar.py            # Workspace, history, memories & config tabs
+│   ├── chat.py               # Chat viewports & welcome screen
+│   └── stream_handler.py     # Live streaming response UI handler
 ├── tests/
 │   ├── verify_memory.py      # Automated memory integration tests
 │   ├── test_filters.py       # Platform client filter tests
 │   └── test_api.py           # API signature verification
+├── main.py                   # Application bootstrapper
 ├── .env                      # System credentials (Git ignored)
 ├── .gitignore                # Git ignore patterns
 └── pyproject.toml            # Package dependencies
@@ -82,8 +82,9 @@ pip install -e .
 
 Start the Streamlit application:
 ```bash
-streamlit run src/app_core/app.py
+streamlit run app_core/app.py
 ```
+*(Or run `python main.py`)*
 
 ---
 
@@ -100,7 +101,8 @@ python tests/verify_memory.py
 
 ## 🔧 Core Components Detail
 
-- [src/app_core/app.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/src/app_core/app.py): Entry point containing application execution flow, session state initialization, and query handling.
-- [src/app_core/memory_handler.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/src/app_core/memory_handler.py): Handles standard `client.add()`, searches using `filters={"user_id": ...}`, and manages vector persistence.
-- [src/app_core/llm_connector.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/src/app_core/llm_connector.py): Formulates prompt context payloads and streams responses from Groq, Gemini, or OpenAI.
-- [src/ui/](file:///c:/Users/Hp/Downloads/mem0-memory-agent/src/ui): Encapsulates all layout styling, navigation icon bars, sidebar tabs, and chat message rendering.
+- [app_core/app.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/app_core/app.py): Entry point containing application execution flow, session state initialization, and query handling.
+- [app_core/memory_handler.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/app_core/memory_handler.py): Handles standard `client.add()`, searches using `filters={"user_id": ...}`, and manages vector persistence.
+- [app_core/llm_connector.py](file:///c:/Users/Hp/Downloads/mem0-memory-agent/app_core/llm_connector.py): Formulates prompt context payloads and streams responses from Groq, Gemini, or OpenAI.
+- [ui/](file:///c:/Users/Hp/Downloads/mem0-memory-agent/ui): Encapsulates all layout styling, navigation icon bars, sidebar tabs, and chat message rendering.
+

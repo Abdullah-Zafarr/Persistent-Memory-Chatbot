@@ -4,7 +4,7 @@ import sys
 def main():
     print("Starting Persistent Memory Chatbot...")
     print("Make sure you are using your Python 3.14 environment.")
-    cmd = [sys.executable, "-m", "streamlit", "run", "src/app.py"]
+    cmd = [sys.executable, "-m", "streamlit", "run", "app_core/app.py"]
     try:
         subprocess.run(cmd, check=True)
     except KeyboardInterrupt:
