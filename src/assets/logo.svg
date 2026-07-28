@@ -1,0 +1,5 @@
+<svg width="180" height="110" viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+  <text x="55" y="90" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-weight="900" font-size="64" fill="#00a8ff" letter-spacing="-2">LLM</text>
+  <path d="M 45 15 C 10 35 -5 85 45 115 C 95 135 155 115 175 95" fill="none" stroke="#00a8ff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 120 40 C 60 10 20 30 18 65 C 16 95 65 115 160 105 C 140 110 80 112 40 98 C 25 90 24 60 45 35 C 70 15 115 28 120 40 Z" fill="#ff3344"/>
+</svg>
