@@ -7,12 +7,17 @@ def _load_asset(filename: str) -> str:
     with open(path, "r", encoding="utf-8") as f:
         return f.read().strip()
 
+import base64
+
 HUMAN_SVG = _load_asset("human.svg")
 ROBOT_SVG = _load_asset("robot.svg")
 LOGO_SVG  = _load_asset("logo.svg")
 
-HUMAN_AVATAR = f"data:image/svg+xml;utf8,{HUMAN_SVG}"
-ROBOT_AVATAR = f"data:image/svg+xml;utf8,{ROBOT_SVG}"
+human_b64 = base64.b64encode(HUMAN_SVG.encode("utf-8")).decode("utf-8")
+robot_b64 = base64.b64encode(ROBOT_SVG.encode("utf-8")).decode("utf-8")
+
+HUMAN_AVATAR = f"data:image/svg+xml;base64,{human_b64}"
+ROBOT_AVATAR = f"data:image/svg+xml;base64,{robot_b64}"
 
 WELCOME_SCREEN_HTML = f"""
 <div class="welcome-screen">
