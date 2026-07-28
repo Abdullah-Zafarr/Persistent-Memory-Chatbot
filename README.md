@@ -6,7 +6,7 @@ A personalized, context-aware chatbot interface that remembers facts, preference
 
 ## ✨ Interface Overview
 
-![Interface Layout](ui/screenshots/interface.png)
+![Interface Layout](ui/screenshot/interface.PNG)
 
 ---
 
@@ -34,8 +34,8 @@ mem0-memory-agent/
 │   ├── robot.svg             # Assistant avatar graphic
 │   └── logo.svg              # Orbital LLM welcome logo
 ├── ui/                       # Modular Frontend UI Components
-│   ├── screenshots/          # UI screenshots directory
-│   │   └── interface.png     # Web application layout screenshot
+│   ├── screenshot/           # UI screenshot directory
+│   │   └── interface.PNG     # Web application layout screenshot
 │   ├── styles.py             # Global CSS themes & texture rules
 │   ├── navigation.py         # Fixed icon sidebar JS component
 │   ├── sidebar.py            # Workspace, history, memories & config tabs
