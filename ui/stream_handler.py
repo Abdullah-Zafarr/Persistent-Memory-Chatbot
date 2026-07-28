@@ -1,24 +1,25 @@
 import streamlit as st
 import threading
-from ui import ROBOT_AVATAR
+from ui.styles import ROBOT_AVATAR
+from ui.chat import _bubble_html
 
 def stream_and_save_response(pending, memories, history, connector, save_active_message_fn, get_namespace_uid_fn):
-    with st.chat_message("assistant", avatar=ROBOT_AVATAR):
-        ph = st.empty()
-        full_resp = ""
-        try:
-            for chunk in connector.generate_response_stream(
-                prompt=pending,
-                chat_history=history[:-1],
-                memories=memories,
-                temperature=st.session_state.temperature,
-            ):
-                full_resp += chunk
-                ph.markdown(full_resp + "▌")
-            ph.markdown(full_resp)
-        except Exception as ex:
-            full_resp = f"Error: {ex}"
-            ph.error(full_resp)
+    # Stream live into a placeholder, then save and rerun (history rerender styles it)
+    ph = st.empty()
+    full_resp = ""
+    try:
+        for chunk in connector.generate_response_stream(
+            prompt=pending,
+            chat_history=history[:-1],
+            memories=memories,
+            temperature=st.session_state.temperature,
+        ):
+            full_resp += chunk
+            ph.markdown(_bubble_html("assistant", full_resp + " ▌"), unsafe_allow_html=True)
+        ph.markdown(_bubble_html("assistant", full_resp), unsafe_allow_html=True)
+    except Exception as ex:
+        full_resp = f"Error: {ex}"
+        ph.error(full_resp)
 
     save_active_message_fn("assistant", full_resp)
 
