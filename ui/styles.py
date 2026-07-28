@@ -86,11 +86,45 @@ GLOBAL_CSS = """
         margin: 0 auto !important;
     }
 
+    /* ── Chat bubbles: base layout ── */
     [data-testid="stChatMessage"] {
         background-color: transparent !important;
         border: none !important;
-        padding: 8px 0 !important;
+        padding: 4px 0 !important;
+        display: flex !important;
+        width: 100% !important;
     }
+
+    /* ── User messages: push to RIGHT ── */
+    [data-testid="stChatMessage"][data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]),
+    .stChatMessage-user {
+        flex-direction: row-reverse !important;
+    }
+
+    /* Target user messages via the row-reverse trick using CSS attribute */
+    [data-testid="stChatMessage"]:has(img[alt="user"]) {
+        flex-direction: row-reverse !important;
+    }
+    [data-testid="stChatMessage"]:has(img[alt="user"]) [data-testid="stMarkdownContainer"] {
+        background-color: rgba(56, 189, 248, 0.15) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        border-radius: 18px 4px 18px 18px !important;
+        padding: 10px 16px !important;
+        margin-left: auto !important;
+        max-width: 75% !important;
+    }
+
+    /* ── Assistant messages: stay on LEFT ── */
+    [data-testid="stChatMessage"]:has(img[alt="assistant"]) [data-testid="stMarkdownContainer"] {
+        background-color: rgba(22, 25, 43, 0.7) !important;
+        border: 1px solid #252940 !important;
+        border-radius: 4px 18px 18px 18px !important;
+        padding: 10px 16px !important;
+        margin-right: auto !important;
+        max-width: 75% !important;
+    }
+
+    /* ── Avatar shared styling ── */
     [data-testid="stChatMessage"] [data-testid="stChatMessageAvatar"] {
         display: flex !important;
         background-color: #ffffff !important;
@@ -98,16 +132,12 @@ GLOBAL_CSS = """
         border-radius: 50% !important;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
         overflow: hidden !important;
+        flex-shrink: 0 !important;
     }
     [data-testid="stChatMessage"] [data-testid="stChatMessageAvatar"] img {
         background-color: #ffffff !important;
     }
-    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] {
-        background-color: rgba(22, 25, 43, 0.6) !important;
-        border: 1px solid #252940 !important;
-        border-radius: 12px !important;
-        padding: 10px 16px !important;
-    }
+
     [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p {
         font-size: 15px !important;
         line-height: 1.65 !important;

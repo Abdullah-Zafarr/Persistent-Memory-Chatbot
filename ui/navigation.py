@@ -134,7 +134,39 @@ def render_icon_bar(active_tab: str):
             }});
         }}
         patchChatInput();
-        new window.parent.MutationObserver(patchChatInput).observe(
+        function patchChatBubbles() {{
+            const msgs = window.parent.document.querySelectorAll('[data-testid="stChatMessage"]');
+            msgs.forEach(msg => {{
+                const img = msg.querySelector('img');
+                if (!img) return;
+                const alt = (img.alt || '').toLowerCase();
+                if (alt === 'user') {{
+                    msg.style.flexDirection = 'row-reverse';
+                    const bubble = msg.querySelector('[data-testid="stMarkdownContainer"]');
+                    if (bubble) {{
+                        bubble.style.marginLeft = 'auto';
+                        bubble.style.marginRight = '0';
+                        bubble.style.maxWidth = '75%';
+                        bubble.style.backgroundColor = 'rgba(56, 189, 248, 0.15)';
+                        bubble.style.border = '1px solid rgba(56, 189, 248, 0.35)';
+                        bubble.style.borderRadius = '18px 4px 18px 18px';
+                    }}
+                }} else if (alt === 'assistant') {{
+                    msg.style.flexDirection = 'row';
+                    const bubble = msg.querySelector('[data-testid="stMarkdownContainer"]');
+                    if (bubble) {{
+                        bubble.style.marginRight = 'auto';
+                        bubble.style.marginLeft = '0';
+                        bubble.style.maxWidth = '75%';
+                        bubble.style.backgroundColor = 'rgba(22, 25, 43, 0.7)';
+                        bubble.style.border = '1px solid #252940';
+                        bubble.style.borderRadius = '4px 18px 18px 18px';
+                    }}
+                }}
+            }});
+        }}
+        patchChatBubbles();
+        new window.parent.MutationObserver(() => {{ patchChatInput(); patchChatBubbles(); }}).observe(
             window.parent.document.body, {{subtree: true, childList: true}}
         );
     }})();
